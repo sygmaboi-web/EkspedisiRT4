@@ -1,0 +1,582 @@
+/* Pengaturan Dasar dan Font */
+:root {
+    --biru-tua: #00204A;
+    --merah-tua: #A00000;
+    --gold: #FFD700;
+    --putih: #FFFFFF;
+    --latar-terang: #FFFFFF;
+    --latar-alternatif: #f0f4f8; /* Biru sangat muda */
+    --teks-biasa: #333;
+}
+
+html {}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--latar-terang);
+    color: var(--teks-biasa);
+    line-height: 1.6;
+}
+
+/* Header dan Navigasi */
+header {
+    background-color: var(--biru-tua);
+    color: var(--gold);
+    padding: 1rem 0;
+    border-bottom: 5px solid var(--merah-tua);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+nav .logo h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--gold);
+}
+
+nav .logo p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--putih);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--putih);
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+}
+
+
+/* ======================================= */
+/* KODE KUNCI UNTUK TRANSISI HALAMAN FADE */
+/* ======================================= */
+.page-container {
+    position: relative;
+    overflow: hidden; /* Sembunyikan halaman lain */
+}
+
+.page-section {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: opacity 0.4s ease-in-out;
+    min-height: calc(100vh - 120px);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+.page-section.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative; /* Kembalikan ke alur normal */
+}
+
+#beranda.hero-section.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* ======================================= */
+
+
+/* Bagian 1: Hero Section (Beranda) */
+#beranda.hero-section {
+    background: linear-gradient(rgba(0, 32, 74, 0.8), rgba(0, 32, 74, 0.8)), url('path/ke/foto_latar_belakang.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--putih);
+    text-align: center;
+    padding: 3rem 2rem;
+    min-height: 40vh;
+}
+
+.hero-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+#beranda.hero-section h1 {
+    font-size: 3.5rem;
+    margin: 0;
+    color: var(--gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    background-color: transparent;
+    border-radius: 0; /* Kotak */
+    padding: 5px;
+    border: 2px solid var(--gold);
+}
+
+#beranda.hero-section h2 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0 1rem 0;
+    font-weight: 300;
+}
+
+#beranda.hero-section p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Konten Utama */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.content-section {
+    padding: 3rem 2rem;
+}
+
+.alternate-bg {
+    background-color: var(--latar-alternatif);
+}
+
+.content-section h2 {
+    font-size: 2.5rem;
+    color: var(--merah-tua);
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Sub-header (Judul kecil di dalam section) */
+.section-subheader {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--biru-tua);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 5px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* CSS KEGIATAN (TIMELINE) */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    border-left: 4px solid var(--merah-tua);
+}
+
+.timeline-item {
+    display: flex;
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 2.5rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--gold);
+    border: 3px solid var(--biru-tua);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-date {
+    flex-basis: 30%;
+    padding-right: 2rem;
+    text-align: right;
+}
+.timeline-date span { font-size: 1.3rem; font-weight: bold; color: var(--merah-tua); display: block; }
+.timeline-date p { font-size: 1rem; color: var(--teks-biasa); margin: 0.2rem 0 0 0; }
+.timeline-content {
+    flex-basis: 70%;
+    background-color: var(--putih);
+    border: 1px solid #ddd;
+    border-left: 5px solid var(--gold);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.timeline-content h3 { margin: 0 0 1rem 0; color: var(--biru-tua); font-size: 1.4rem; }
+.timeline-content ul { margin: 0; padding-left: 1.5rem; }
+.timeline-content li { margin-bottom: 0.5rem; line-height: 1.5; }
+
+
+/* ================================================== */
+/* ==== STYLE DETAIL AKTIVITAS PER HARI ==== */
+/* ================================================== */
+.aktivitas-harian-list {
+    margin-top: 2rem;
+}
+
+.aktivitas-hari {
+    margin-bottom: 3rem; /* Jarak antar kelompok hari */
+}
+
+.tanggal-aktivitas {
+    font-size: 1.6rem;
+    color: var(--biru-tua);
+    border-bottom: 3px solid var(--merah-tua);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.aktivitas-item {
+    display: flex;
+    flex-direction: row; /* Foto di samping teks */
+    align-items: center;  /* Teks rata tengah vertikal dgn foto */
+    gap: 1.5rem;
+    background-color: var(--putih); /* Latar putih */
+    padding: 1.5rem;
+    margin-bottom: 1.5rem; /* Jarak antar item di hari yg sama */
+    border-radius: 8px;
+    border-left: 5px solid var(--biru-tua); /* Aksen biru */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.aktivitas-item img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #eee;
+    flex-shrink: 0; /* Biar gambar gak penyet */
+}
+.aktivitas-item div {
+    flex: 1;
+}
+/* Pakai H5 di HTML */
+.aktivitas-item h5 {
+    color: var(--merah-tua); /* Judul aktivitas merah */
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+.aktivitas-item p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+/* ======================================= */
+
+
+/* ======================================= */
+/* CSS PROFIL (KARTU BARU - GRID 3 KOLOM) */
+/* ======================================= */
+.profil-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profil-grid {
+    display: grid;
+    /* ==== INI YANG DIUBAH: SELALU 3 KOLOM ==== */
+    grid-template-columns: repeat(3, 1fr);
+    /* ======================================== */
+    gap: 1.5rem;
+}
+
+.profil-card {
+    background-color: var(--putih);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-top: 5px solid var(--gold);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Menandakan bisa diklik */
+}
+
+.profil-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.profil-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px; /* KOTAK */
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--biru-tua);
+    background-color: #eee;
+}
+
+.profil-card h3 {
+    margin: 0.5rem 0;
+    color: var(--merah-tua);
+    font-size: 1.3rem;
+    min-height: 40px; /* Jaga tinggi h3 biar sejajar */
+}
+
+/* Kartu Pembina (tetap di atas) */
+.profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] {
+    grid-column: 1 / -1; /* Ambil lebar penuh */
+    max-width: 500px; /* Batasi lebar */
+    margin: 0 auto 2rem auto; /* Pusatkan */
+    order: -1; /* Pastikan selalu paling atas */
+}
+
+/* Label Pembina Sederhana */
+.pembina-label-simple {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--merah-tua);
+    color: var(--putih);
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+
+/* ======================================= */
+/* CSS BARU UNTUK MODAL (POP-UP) */
+/* ======================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 32, 74, 0.85);
+    z-index: 2000;
+
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+/* Style untuk kotak modal */
+.modal-content {
+    background-color: var(--putih);
+    padding: 2rem;
+    border-radius: 8px;
+    border-top: 5px solid var(--gold);
+    border-bottom: 5px solid var(--merah-tua);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+/* Tombol Close */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+.modal-close:hover { color: var(--merah-tua); }
+
+/* Style di dalam modal */
+#modalFoto {
+    width: 180px;
+    height: 180px;
+    border-radius: 8px; /* Kotak */
+    object-fit: cover;
+    border: 4px solid var(--biru-tua);
+    margin-bottom: 1rem;
+}
+#modalNama {
+    font-size: 1.8rem;
+    color: var(--merah-tua);
+    margin: 0.5rem 0;
+}
+#modalPeran {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--biru-tua);
+    margin: 0.5rem 0;
+}
+#modalSekolah {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.3rem 0;
+    padding-bottom: 0.5rem; /* Beri jarak ke grup kontak */
+}
+
+/* Style untuk grup kontak */
+.modal-kontak {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: left; /* Rata kiri di dalam modal */
+}
+
+.modal-kontak p {
+    font-size: 0.95rem;
+    color: #333;
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+/* ======================================= */
+
+
+/* ======================================= */
+/* CSS SEJARAH (Layout Kiri-Kanan) */
+/* ======================================= */
+.sejarah-item {
+    display: flex;
+    flex-direction: row; /* Foto di samping teks */
+    align-items: center;  /* Teks rata tengah vertikal dgn foto */
+    gap: 1.5rem;
+    background-color: var(--latar-alternatif);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid var(--merah-tua);
+}
+.sejarah-item img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #eee;
+    flex-shrink: 0; /* Biar gambar gak penyet */
+}
+.sejarah-item div {
+    flex: 1;
+}
+.sejarah-item h3 {
+    color: var(--biru-tua);
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+.sejarah-item p {
+    font-size: 0.95rem; /* Pastikan teksnya rapi */
+    line-height: 1.6;
+}
+
+
+/* Media Query (Tampilan HP) */
+@media (max-width: 768px) {
+    /* Atur judul beranda di HP */
+    .hero-title-container { gap: 1rem; flex-wrap: wrap; }
+    #beranda.hero-section h1 { font-size: 2.5rem; order: 2; width: 100%;}
+    .hero-logo:nth-of-type(1) { order: 1; }
+    .hero-logo:nth-of-type(2) { order: 3; }
+    .hero-logo { width: 60px; height: 60px; }
+
+    /* Atur timeline di HP */
+    .timeline { padding: 1rem 0; border-left: 3px solid var(--merah-tua); }
+    .timeline-item { flex-direction: column; padding-left: 1.5rem; }
+    .timeline-item::before { left: -10px; top: -2px; width: 16px; height: 16px; }
+    .timeline-date { flex-basis: auto; text-align: left; padding-right: 0; margin-bottom: 0.5rem; }
+    .timeline-date span { font-size: 1.2rem; }
+    .timeline-content { flex-basis: auto; }
+
+    /* Atur profil & sejarah & aktivitas di HP */
+    .sejarah-item,
+    .aktivitas-item {
+        flex-direction: column; /* Balikin jadi atas-bawah di HP */
+        align-items: center;
+        text-align: center; /* Teks juga ke tengah */
+    }
+    .sejarah-item img,
+    .aktivitas-item img {
+        width: 100%;
+        max-width: 300px; /* Batasi lebar gambar di HP */
+    }
+    /* ==== HAPUS ATURAN 1 KOLOM PROFIL DI HP ==== */
+    /* .profil-grid { grid-template-columns: 1fr; } -- DIHAPUS */
+    /* =========================================== */
+
+    /* Kartu pembina tetap full width di HP */
+     .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] {
+        max-width: 100%;
+    }
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--biru-tua);
+    color: var(--gold);
+    margin-top: 0;
+    border-top: 5px solid var(--merah-tua);
+    font-size: 0.9rem;
+}
