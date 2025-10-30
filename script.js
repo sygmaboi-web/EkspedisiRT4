@@ -18,11 +18,13 @@ function formatWaLink(phone) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --- 1. LOGIKA UNTUK PINDAH HALAMAN (FADE TRANSITION) ---
+
     const navLinks = document.querySelectorAll('nav ul li a');
     const pages = document.querySelectorAll('.page-section');
     const pageContainer = document.querySelector('.page-container');
     
-    // [BARU] Ambil elemen menu hamburger
+    // Ambil elemen menu hamburger
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const navUl = document.querySelector('nav ul');
 
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (pageContainer) {
             const activePage = pageContainer.querySelector('.page-section.active');
             if (activePage) {
+                // Set minHeight agar transisi fade tidak "melompat"
                 pageContainer.style.minHeight = activePage.offsetHeight + 'px';
             }
         }
@@ -43,9 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
             targetPage.classList.add('active');
              setTimeout(() => {
                 if (pageContainer) {
-                    pageContainer.style.minHeight = '';
+                    pageContainer.style.minHeight = ''; // Kembalikan ke auto
                 }
-            }, 400); 
+            }, 400); // Sesuaikan dengan durasi transisi CSS
         }
         window.scrollTo(0, 0);
     }
@@ -58,10 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!currentPage || currentPage.id !== targetId) {
                  showPage(targetId);
-                 // Tidak perlu `window.location.hash = targetId;` karena akan scroll
+                 // [FIX] BARIS INI DIKEMBALIKAN. Ini adalah perbaikannya.
+                 window.location.hash = targetId; 
             }
 
-            // [BARU] Otomatis tutup hamburger menu setelah link diklik
+            // Otomatis tutup hamburger menu setelah link diklik
             if (navUl && hamburgerBtn) {
                 navUl.classList.remove('nav-active');
                 hamburgerBtn.classList.remove('active');
@@ -69,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // (Logika Pindah Halaman Anda sudah bagus, saya sesuaikan sedikit)
+    // Cek hash di URL pas pertama kali buka
     function handleInitialLoad() {
         let initialPageId = 'beranda'; 
         if (window.location.hash) {
@@ -95,22 +99,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalPeran = document.getElementById('modalPeran');
     const modalSekolah = document.getElementById('modalSekolah');
     
-    // [DIUBAH] Elemen ini sekarang adalah <a>, bukan <p>
+    // Elemen ini sekarang adalah <a>
     const modalTelpFasilitator = document.getElementById('modalTelpFasilitator');
     const modalTelpAyah = document.getElementById('modalTelpAyah');
     const modalTelpIbu = document.getElementById('modalTelpIbu');
 
     profilTriggers.forEach(card => {
         card.addEventListener('click', function() {
-            const data = this.dataset;
+            const data = this.dataset; // Ambil semua data-*
 
             modalFoto.src = data.foto;
-            modalFoto.onerror = function() { this.src = 'placeholder.png'; }; 
+            modalFoto.onerror = function() { this.src = 'placeholder.png'; }; // Fallback jika foto error
             modalNama.textContent = data.nama;
             modalPeran.textContent = data.peran;
             modalSekolah.textContent = "Asal Sekolah: " + data.sekolah;
 
-            // --- [LOGIKA BARU UNTUK LINK WA] ---
+            // --- Logika Baru untuk Link WA ---
 
             // 1. Proses Link Fasilitator
             const waFas = formatWaLink(data.telpFasilitator);
@@ -141,9 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 modalTelpIbu.style.display = 'none';
             }
-            // --- [AKHIR LOGIKA BARU] ---
-
-
+            
+            // Tampilkan modal
             profilModalOverlay.style.display = 'flex';
             setTimeout(() => {
                 profilModalOverlay.style.opacity = '1';
@@ -152,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Fungsi menutup modal profil
     function closeProfilModal() {
         profilModalOverlay.style.opacity = '0';
         profilModalContent.style.transform = 'scale(0.9)';
@@ -167,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- 3. LOGIKA MODAL (POP-UP) KEGIATAN (Tidak Berubah) ---
+    // --- 3. LOGIKA MODAL (POP-UP) KEGIATAN ---
 
     const kegiatanModalOverlay = document.getElementById('kegiatanModal');
     const kegiatanModalContent = kegiatanModalOverlay.querySelector('.modal-content');
@@ -191,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Fungsi menutup modal kegiatan
      function closeKegiatanModal() {
         kegiatanModalOverlay.style.opacity = '0';
         kegiatanModalContent.style.transform = 'scale(0.9)';
@@ -206,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
          }
     });
 
+    // (Opsional) Tutup modal dengan tombol Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === "Escape") {
             if (profilModalOverlay.style.opacity === '1') {
@@ -217,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- [4. LOGIKA BARU UNTUK HAMBURGER MENU] ---
+    // --- 4. LOGIKA BARU UNTUK HAMBURGER MENU ---
     if (hamburgerBtn && navUl) {
         hamburgerBtn.addEventListener('click', () => {
             navUl.classList.toggle('nav-active');
