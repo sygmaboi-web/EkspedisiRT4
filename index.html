@@ -20,12 +20,17 @@
                 <li><a href="#profil">Profil Anggota</a></li>
                 <li><a href="#sejarah">Sejarah Lokasi</a></li>
             </ul>
+            <button class="hamburger" id="hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
     <div class="page-container">
 
-        <section id="beranda" class="page-section active">
+        <section id="beranda" class="page-section active hero-section">
             <div class="hero-title-container">
                 <img src="logosmp.png" alt="Logo Baitul Maal" class="hero-logo">
                 <h1>EKspedisi RT 4</h1>
@@ -37,7 +42,7 @@
 
         <section id="kegiatan" class="content-section page-section">
             <h2>Rencana Kegiatan Ekspedisi</h2>
-            <p>Klik pada setiap tanggal di linimasa di bawah untuk melihat detail aktivitasnya.</p>
+            <p style="text-align: center; margin-top: -1.5rem; margin-bottom: 2rem; font-size: 1.1em; color: #555;">Klik pada setiap tanggal di linimasa di bawah untuk melihat detail aktivitasnya.</p>
 
             <div class="timeline">
                 <div class="timeline-item timeline-trigger">
@@ -85,7 +90,7 @@
                             <p>Sesi kreatif bersama anak-anak desa untuk membuat kerajinan tangan gantungan kunci dari bahan resin, sebagai momen berbagi inspirasi dan mengasah kreativitas.</p>
                             <h5>BPJS (Bersih-bersih Perkampungan)</h5>
                             <p>Melakukan aksi "Bersih-bersih Perkampungan Jadi Sehat" di jalan utama yang mengarah ke perkampungan warga sebagai bentuk pengabdian langsung kepada masyarakat.</p>
-                         </div>
+                        </div>
                     </div>
                 </div>
                 <div class="timeline-item timeline-trigger">
@@ -99,7 +104,7 @@
                             <p>Mengunjungi perkebunan apel, mewawancarai petani, belajar teknik pemetikan, waktu tanam, proses pengolahan, dan memetik apel langsung dari pohonnya.</p>
                             <h5>Eksplorasi Museum Angkut</h5>
                             <p>Mengunjungi museum transportasi pertama di Asia Tenggara untuk melihat sejarah transportasi dunia melalui diorama dan koleksi kendaraan dari berbagai era.</p>
-                         </div>
+                        </div>
                     </div>
                 </div>
                 <div class="timeline-item timeline-trigger">
@@ -243,7 +248,7 @@
 
         <section id="sejarah" class="content-section page-section">
             <h2>Wawasan & Sejarah Lokasi Kunjungan</h2>
-            <p class="profil-subtitle">Memahami latar belakang tempat yang kami kunjungi adalah bagian penting dari ekspedisi ini.</p>
+            <p class="profil-subtitle" style="margin-top: -1.5rem;">Memahami latar belakang tempat yang kami kunjungi adalah bagian penting dari ekspedisi ini.</p>
 
             <div class="sejarah-item">
                 <img src="museumangkut.jpeg" alt="Foto Museum Angkut">
@@ -275,7 +280,9 @@
             </div>
         </section>
 
-    </div> <div class="modal-overlay" id="profilModal">
+    </div> 
+    
+    <div class="modal-overlay" id="profilModal">
         <div class="modal-content">
             <button class="modal-close" id="profilModalCloseBtn">&times;</button>
             <img src="" alt="Foto Profil" id="modalFoto">
@@ -283,9 +290,9 @@
             <p id="modalPeran"></p>
             <p id="modalSekolah"></p>
             <div class="modal-kontak">
-                <p id="modalTelpFasilitator"></p>
-                <p id="modalTelpAyah"></p>
-                <p id="modalTelpIbu"></p>
+                <a id="modalTelpFasilitator" href="#" target="_blank" class="kontak-link"></a>
+                <a id="modalTelpAyah" href="#" target="_blank" class="kontak-link"></a>
+                <a id="modalTelpIbu" href="#" target="_blank" class="kontak-link"></a>
             </div>
         </div>
     </div>
@@ -301,6 +308,7 @@
 
     <footer>
         <p>&copy; 2025 - Ekspedisi RT 4 | SMP Islam Plus Baitul Maal</p>
+        <p>Made By @Alvino_Daris</p>
     </footer>
 
     <script src="script.js"></script>
