@@ -1,14 +1,32 @@
-// Menunggu sampai semua konten HTML dimuat
-document.addEventListener('DOMContentLoaded', function() {
+// [BARU] Fungsi helper untuk format nomor WA
+function formatWaLink(phone) {
+    if (!phone || phone === '-') {
+        return null; // Kembalikan null jika tidak ada nomor
+    }
+    // Hapus spasi, strip, dan ganti 0 di depan dengan 62
+    let formattedPhone = phone.replace(/-/g, '').replace(/ /g, '');
+    if (formattedPhone.startsWith('0')) {
+        formattedPhone = '62' + formattedPhone.substring(1);
+    }
+    // Cek lagi jika masih ada karakter aneh
+    if (!/^[0-9]+$/.test(formattedPhone)) {
+        return null;
+    }
+    return `https://wa.me/${formattedPhone}`;
+}
 
-    // --- 1. LOGIKA UNTUK PINDAH HALAMAN (FADE TRANSITION) ---
+
+document.addEventListener('DOMContentLoaded', function() {
 
     const navLinks = document.querySelectorAll('nav ul li a');
     const pages = document.querySelectorAll('.page-section');
-    const pageContainer = document.querySelector('.page-container'); // Perlu ini
+    const pageContainer = document.querySelector('.page-container');
+    
+    // [BARU] Ambil elemen menu hamburger
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navUl = document.querySelector('nav ul');
 
     function showPage(pageId) {
-        // Biar nggak aneh pas ganti, sementara set tinggi fix
         if (pageContainer) {
             const activePage = pageContainer.querySelector('.page-section.active');
             if (activePage) {
@@ -16,46 +34,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-
-        // Loop semua halaman, sembunyikan semua
         pages.forEach(page => {
             page.classList.remove('active');
         });
 
-        // Tampilkan halaman yang dituju
         const targetPage = document.getElementById(pageId);
         if (targetPage) {
             targetPage.classList.add('active');
-            // Setelah transisi selesai, hapus minHeight biar dinamis lagi
              setTimeout(() => {
                 if (pageContainer) {
                     pageContainer.style.minHeight = '';
                 }
-            }, 400); // Sesuaikan dengan durasi transisi CSS
+            }, 400); 
         }
-
-        // Selalu scroll ke atas setiap pindah "halaman"
         window.scrollTo(0, 0);
     }
 
-    // Tambahkan event listener untuk setiap link navigasi
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1); // "profil"
-            // Jangan ganti halaman kalau link yang diklik udah aktif
+            const targetId = this.getAttribute('href').substring(1);
             const currentPage = document.querySelector('.page-section.active');
+            
             if (!currentPage || currentPage.id !== targetId) {
                  showPage(targetId);
-                 window.location.hash = targetId; // Ubah hash URL
+                 // Tidak perlu `window.location.hash = targetId;` karena akan scroll
             }
 
+            // [BARU] Otomatis tutup hamburger menu setelah link diklik
+            if (navUl && hamburgerBtn) {
+                navUl.classList.remove('nav-active');
+                hamburgerBtn.classList.remove('active');
+            }
         });
     });
 
-    // Cek hash di URL pas pertama kali buka
+    // (Logika Pindah Halaman Anda sudah bagus, saya sesuaikan sedikit)
     function handleInitialLoad() {
-        let initialPageId = 'beranda'; // Default
+        let initialPageId = 'beranda'; 
         if (window.location.hash) {
             const hashId = window.location.hash.substring(1);
             if (document.getElementById(hashId)) {
@@ -64,50 +80,70 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         showPage(initialPageId);
     }
+    handleInitialLoad(); 
 
-    handleInitialLoad(); // Panggil fungsi saat load
 
-
-    // --- 2. LOGIKA UNTUK MODAL (POP-UP) PROFIL ---
+    // --- 2. LOGIKA MODAL (POP-UP) PROFIL ---
 
     const profilModalOverlay = document.getElementById('profilModal');
     const profilModalContent = profilModalOverlay.querySelector('.modal-content');
     const profilModalCloseBtn = document.getElementById('profilModalCloseBtn');
     const profilTriggers = document.querySelectorAll('.profil-trigger');
 
-    // Ambil elemen di dalam modal profil
     const modalFoto = document.getElementById('modalFoto');
     const modalNama = document.getElementById('modalNama');
     const modalPeran = document.getElementById('modalPeran');
     const modalSekolah = document.getElementById('modalSekolah');
+    
+    // [DIUBAH] Elemen ini sekarang adalah <a>, bukan <p>
     const modalTelpFasilitator = document.getElementById('modalTelpFasilitator');
     const modalTelpAyah = document.getElementById('modalTelpAyah');
     const modalTelpIbu = document.getElementById('modalTelpIbu');
 
-    // Loop setiap kartu profil dan tambahkan event listener
     profilTriggers.forEach(card => {
         card.addEventListener('click', function() {
-            // 1. Ambil data dari 'data-' attributes
-            const nama = this.dataset.nama;
-            const foto = this.dataset.foto;
-            const peran = this.dataset.peran;
-            const sekolah = this.dataset.sekolah;
-            const telpFasilitator = this.dataset.telpFasilitator;
-            const telpAyah = this.dataset.telpAyah;
-            const telpIbu = this.dataset.telpIbu;
+            const data = this.dataset;
 
-            // 2. Masukkan data ke dalam modal profil
-            modalFoto.src = foto;
-            // Tambah error handling jika foto tidak ada
-             modalFoto.onerror = function() { this.src = 'placeholder.png'; }; // Ganti 'placeholder.png' jika perlu
-            modalNama.textContent = nama;
-            modalPeran.textContent = peran;
-            modalSekolah.textContent = "Asal Sekolah: " + sekolah;
-            modalTelpFasilitator.textContent = "No. Fasilitator: " + telpFasilitator;
-            modalTelpAyah.textContent = "No. Telp Ayah: " + telpAyah;
-            modalTelpIbu.textContent = "No. Telp Ibu: " + telpIbu;
+            modalFoto.src = data.foto;
+            modalFoto.onerror = function() { this.src = 'placeholder.png'; }; 
+            modalNama.textContent = data.nama;
+            modalPeran.textContent = data.peran;
+            modalSekolah.textContent = "Asal Sekolah: " + data.sekolah;
 
-            // 3. Tampilkan modal profil dengan transisi
+            // --- [LOGIKA BARU UNTUK LINK WA] ---
+
+            // 1. Proses Link Fasilitator
+            const waFas = formatWaLink(data.telpFasilitator);
+            if (waFas) {
+                modalTelpFasilitator.textContent = "Kontak Fasilitator: " + data.telpFasilitator;
+                modalTelpFasilitator.href = waFas;
+                modalTelpFasilitator.style.display = 'block'; // Tampilkan
+            } else {
+                modalTelpFasilitator.style.display = 'none'; // Sembunyikan
+            }
+
+            // 2. Proses Link Ayah
+            const waAyah = formatWaLink(data.telpAyah);
+            if (waAyah) {
+                modalTelpAyah.textContent = "Kontak Ayah: " + data.telpAyah;
+                modalTelpAyah.href = waAyah;
+                modalTelpAyah.style.display = 'block';
+            } else {
+                modalTelpAyah.style.display = 'none';
+            }
+
+            // 3. Proses Link Ibu
+            const waIbu = formatWaLink(data.telpIbu);
+            if (waIbu) {
+                modalTelpIbu.textContent = "Kontak Ibu: " + data.telpIbu;
+                modalTelpIbu.href = waIbu;
+                modalTelpIbu.style.display = 'block';
+            } else {
+                modalTelpIbu.style.display = 'none';
+            }
+            // --- [AKHIR LOGIKA BARU] ---
+
+
             profilModalOverlay.style.display = 'flex';
             setTimeout(() => {
                 profilModalOverlay.style.opacity = '1';
@@ -116,19 +152,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Fungsi untuk menutup modal profil
     function closeProfilModal() {
         profilModalOverlay.style.opacity = '0';
         profilModalContent.style.transform = 'scale(0.9)';
         setTimeout(() => {
             profilModalOverlay.style.display = 'none';
-        }, 300); // Sesuai durasi transisi CSS
+        }, 300); 
     }
-
-    // Tambahkan event listener untuk tombol close modal profil
     profilModalCloseBtn.addEventListener('click', closeProfilModal);
-
-    // Tutup modal profil jika klik di luar
     profilModalOverlay.addEventListener('click', function(e) {
         if (e.target === profilModalOverlay) {
             closeProfilModal();
@@ -136,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- 3. LOGIKA BARU UNTUK MODAL (POP-UP) KEGIATAN ---
+    // --- 3. LOGIKA MODAL (POP-UP) KEGIATAN (Tidak Berubah) ---
 
     const kegiatanModalOverlay = document.getElementById('kegiatanModal');
     const kegiatanModalContent = kegiatanModalOverlay.querySelector('.modal-content');
@@ -144,49 +175,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const kegiatanModalBody = document.getElementById('kegiatanModalBody');
     const timelineTriggers = document.querySelectorAll('.timeline-trigger');
 
-    // Loop setiap item timeline
     timelineTriggers.forEach(item => {
         item.addEventListener('click', function() {
-            // 1. Cari konten detail yang tersembunyi di dalamnya
             const detailContent = this.querySelector('.timeline-detail-content');
-
             if (detailContent) {
-                // 2. Salin isi HTML konten detail ke dalam modal
                 kegiatanModalBody.innerHTML = detailContent.innerHTML;
-
-                // 3. Tampilkan modal kegiatan
                 kegiatanModalOverlay.style.display = 'flex';
                 setTimeout(() => {
                     kegiatanModalOverlay.style.opacity = '1';
                     kegiatanModalContent.style.transform = 'scale(1)';
                 }, 10);
             } else {
-                console.error("Konten detail tidak ditemukan untuk item timeline ini.");
+                console.error("Konten detail tidak ditemukan.");
             }
         });
     });
 
-     // Fungsi untuk menutup modal kegiatan
-    function closeKegiatanModal() {
+     function closeKegiatanModal() {
         kegiatanModalOverlay.style.opacity = '0';
         kegiatanModalContent.style.transform = 'scale(0.9)';
         setTimeout(() => {
             kegiatanModalOverlay.style.display = 'none';
-            kegiatanModalBody.innerHTML = ''; // Kosongkan isi modal setelah ditutup
-        }, 300); // Sesuai durasi transisi CSS
+            kegiatanModalBody.innerHTML = '';
+        }, 300);
     }
-
-     // Tambahkan event listener untuk tombol close modal kegiatan
     kegiatanModalCloseBtn.addEventListener('click', closeKegiatanModal);
-
-    // Tutup modal kegiatan jika klik di luar
     kegiatanModalOverlay.addEventListener('click', function(e) {
          if (e.target === kegiatanModalOverlay) {
-            closeKegiatanModal();
-        }
+             closeKegiatanModal();
+         }
     });
 
-     // (Opsional) Tutup modal dengan tombol Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === "Escape") {
             if (profilModalOverlay.style.opacity === '1') {
@@ -198,5 +217,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // --- [4. LOGIKA BARU UNTUK HAMBURGER MENU] ---
+    if (hamburgerBtn && navUl) {
+        hamburgerBtn.addEventListener('click', () => {
+            navUl.classList.toggle('nav-active');
+            hamburgerBtn.classList.toggle('active');
+        });
+    }
 
 });
