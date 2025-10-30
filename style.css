@@ -9,7 +9,9 @@
     --teks-biasa: #333;
 }
 
-html {}
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -81,13 +83,44 @@ nav ul li a:focus {
     border-bottom: 2px solid var(--gold);
 }
 
+/* [BARU] Tombol Hamburger (Sembunyi di Desktop) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001; 
+}
+.hamburger span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--putih);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+/* [BARU] Animasi Hamburger jadi 'X' */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
 
 /* ======================================= */
 /* KODE KUNCI UNTUK TRANSISI HALAMAN FADE */
 /* ======================================= */
 .page-container {
     position: relative;
-    overflow: hidden; /* Sembunyikan halaman lain */
+    overflow-x: hidden; 
 }
 
 .page-section {
@@ -99,16 +132,26 @@ nav ul li a:focus {
     width: 100%;
     transition: opacity 0.4s ease-in-out;
     min-height: calc(100vh - 120px);
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 2rem 0; /* Padding atas/bawah */
     box-sizing: border-box;
 }
 
 .page-section.active {
     opacity: 1;
     visibility: visible;
-    position: relative; /* Kembalikan ke alur normal */
+    position: relative; 
 }
+
+/* Penting: .content-section dan .hero-section harus punya padding L/R sendiri */
+.content-section,
+#beranda.hero-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box; /* Pastikan padding tidak menambah width */
+}
+
 
 #beranda.hero-section.active {
     display: flex;
@@ -126,7 +169,8 @@ nav ul li a:focus {
     background-position: center;
     color: var(--putih);
     text-align: center;
-    padding: 3rem 2rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
     min-height: 40vh;
 }
 
@@ -150,7 +194,7 @@ nav ul li a:focus {
     height: 90px;
     object-fit: contain;
     background-color: transparent;
-    border-radius: 0; /* Kotak */
+    border-radius: 0; 
     padding: 5px;
     border: 2px solid var(--gold);
 }
@@ -168,14 +212,9 @@ nav ul li a:focus {
 }
 
 /* Konten Utama */
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
-}
-
 .content-section {
-    padding: 3rem 2rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 .alternate-bg {
@@ -191,20 +230,6 @@ main {
     text-align: center;
 }
 
-/* Sub-header (Judul kecil di dalam section) */
-.section-subheader {
-    text-align: center;
-    font-size: 1.8rem;
-    color: var(--biru-tua);
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--gold);
-    padding-bottom: 5px;
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* CSS KEGIATAN (TIMELINE) */
 .timeline {
     position: relative;
@@ -213,7 +238,6 @@ main {
     padding: 2rem 0;
     border-left: 4px solid var(--merah-tua);
 }
-
 .timeline-item {
     display: flex;
     position: relative;
@@ -221,11 +245,11 @@ main {
     padding-left: 2.5rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    border-radius: 0 8px 8px 0; /* Radius di kanan */
 }
 .timeline-item:hover {
     background-color: rgba(255, 215, 0, 0.1);
 }
-
 .timeline-item::before {
     content: '';
     position: absolute;
@@ -238,11 +262,13 @@ main {
     border-radius: 50%;
     z-index: 1;
 }
-
 .timeline-date {
     flex-basis: 30%;
     padding-right: 2rem;
     text-align: right;
+    /* [DIUBAH] Cegah teks pecah */
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 .timeline-date span { font-size: 1.3rem; font-weight: bold; color: var(--merah-tua); display: block; }
 .timeline-date p { font-size: 1rem; color: var(--teks-biasa); margin: 0.2rem 0 0 0; }
@@ -254,72 +280,17 @@ main {
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    /* [DIUBAH] Biar bisa mengecil */
+    flex-grow: 1;
+    min-width: 0;
+    box-sizing: border-box;
 }
 .timeline-content h3 { margin: 0 0 1rem 0; color: var(--biru-tua); font-size: 1.4rem; }
 .timeline-content ul { margin: 0; padding-left: 1.5rem; }
 .timeline-content li { margin-bottom: 0.5rem; line-height: 1.5; }
 
-/* ================================================== */
-/* ==== STYLE DETAIL AKTIVITAS PER HARI ==== */
-/* ================================================== */
-.aktivitas-harian-list {
-    margin-top: 2rem;
-}
 
-.aktivitas-hari {
-    margin-bottom: 3rem;
-}
-
-.tanggal-aktivitas {
-    font-size: 1.6rem;
-    color: var(--biru-tua);
-    border-bottom: 3px solid var(--merah-tua);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.aktivitas-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
-    background-color: var(--putih);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    border-left: 5px solid var(--biru-tua);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-.aktivitas-item img {
-    width: 100%;
-    max-width: 300px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    background-color: #eee;
-    flex-shrink: 0;
-}
-.aktivitas-item div {
-    flex: 1;
-}
-.aktivitas-item h5 {
-    color: var(--merah-tua);
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1.4rem;
-}
-.aktivitas-item p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
-}
-/* ======================================= */
-
-
-/* ======================================= */
 /* CSS PROFIL (KARTU BARU - GRID 3 KOLOM) */
-/* ======================================= */
 .profil-subtitle {
     text-align: center;
     font-size: 1.1rem;
@@ -327,13 +298,11 @@ main {
     margin-top: -1.5rem;
     margin-bottom: 2rem;
 }
-
 .profil-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
-
 .profil-card {
     background-color: var(--putih);
     border: 1px solid #ddd;
@@ -346,47 +315,35 @@ main {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
-
 .profil-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
-
-/* ==== UKURAN FOTO ANGGOTA DIPERBESAR ==== */
 .profil-card img {
-    width: 200px;  /* Lebar diperbesar */
-    height: 250px; /* Tinggi diperbesar (aspek rasio portrait) */
-    border-radius: 8px; /* Tetap kotak */
-    object-fit: cover; /* Biar pas dan gak penyok */
+    width: 200px; 
+    height: 250px; 
+    border-radius: 8px; 
+    object-fit: cover; 
     margin-bottom: 1rem;
     border: 3px solid var(--biru-tua);
     background-color: #eee;
 }
-/* ====================================== */
-
 .profil-card h3 {
     margin: 0.5rem 0;
     color: var(--merah-tua);
     font-size: 1.3rem;
-    min-height: 40px; /* Jaga tinggi h3 biar sejajar */
+    min-height: 40px; 
 }
-
-/* Kartu Pembina (tetap di atas) */
 .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] {
     grid-column: 1 / -1;
     max-width: 500px;
     margin: 0 auto 2rem auto;
     order: -1;
 }
-
-/* Ukuran foto Pembina juga disamakan */
 .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
      width: 200px;
      height: 250px;
 }
-
-
-/* Label Pembina Sederhana */
 .pembina-label-simple {
     position: absolute;
     top: -15px;
@@ -403,9 +360,7 @@ main {
 }
 
 
-/* ======================================= */
 /* CSS UNTUK SEMUA MODAL (POP-UP) */
-/* ======================================= */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -414,15 +369,15 @@ main {
     height: 100%;
     background-color: rgba(0, 32, 74, 0.85);
     z-index: 2000;
-    display: none;
+    display: none; /* Dikelola oleh JS */
     opacity: 0;
     transition: opacity 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    box-sizing: border-box; /* [BARU] */
 }
-
 .modal-content {
     background-color: var(--putih);
     padding: 2rem;
@@ -431,19 +386,19 @@ main {
     border-bottom: 5px solid var(--merah-tua);
     width: 100%;
     max-width: 500px;
-    max-height: 85vh;
+    max-height: 90vh; /* [DIUBAH] Beri sedikit ruang */
     overflow-y: auto;
     text-align: center;
     position: relative;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transform: scale(0.9);
     transition: transform 0.3s ease;
+    box-sizing: border-box; /* [BARU] */
 }
-
 .modal-close {
-    position: sticky;
-    top: 10px;
-    right: 15px;
+    position: sticky; /* [DIUBAH] Sticky lebih baik dari float */
+    top: -1rem; /* Sesuaikan posisi */
+    margin-right: -1rem; /* Sesuaikan posisi */
     float: right;
     font-size: 2.5rem;
     font-weight: bold;
@@ -457,17 +412,14 @@ main {
 .modal-close:hover { color: var(--merah-tua); }
 
 /* --- Style Modal Profil --- */
-/* ==== UKURAN FOTO MODAL JUGA DIPERBESAR ==== */
 #modalFoto {
-    width: 220px;  /* Lebar diperbesar */
-    height: 280px; /* Tinggi diperbesar */
-    border-radius: 8px; /* Kotak */
+    width: 220px; 
+    height: 280px; 
+    border-radius: 8px; 
     object-fit: cover;
     border: 4px solid var(--biru-tua);
     margin-bottom: 1rem;
 }
-/* ======================================== */
-
 #modalNama {
     font-size: 1.8rem;
     color: var(--merah-tua);
@@ -493,12 +445,24 @@ main {
     margin-top: 1rem;
     text-align: left;
 }
-.modal-kontak p {
+/* [DIUBAH] Ganti <p> menjadi <a> (link) */
+.modal-kontak .kontak-link {
+    display: block;
+    background-color: #25D366; /* Warna WA */
+    color: var(--putih) !important;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
     font-size: 0.95rem;
-    color: #333;
-    margin: 0.5rem 0;
-    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
+.modal-kontak .kontak-link:hover {
+    background-color: #128C7E;
+}
+
 
 /* --- Style Modal Kegiatan --- */
 .kegiatan-modal-content {
@@ -527,12 +491,9 @@ main {
     line-height: 1.6;
     margin-bottom: 1rem;
 }
-/* ======================================= */
 
 
-/* ======================================= */
 /* CSS SEJARAH (Layout Kiri-Kanan) */
-/* ======================================= */
 .sejarah-item {
     display: flex;
     flex-direction: row;
@@ -555,6 +516,7 @@ main {
 }
 .sejarah-item div {
     flex: 1;
+    min-width: 0; /* Cegah teks keluar */
 }
 .sejarah-item h3 {
     color: var(--biru-tua);
@@ -567,37 +529,83 @@ main {
 }
 
 
-/* Media Query (Tampilan HP) */
+/* ======================================= */
+/* [DIUBAH] Media Query (Tampilan HP) */
+/* ======================================= */
 @media (max-width: 768px) {
+    
+    /* [BARU] Atur Navigasi HP */
+    nav {
+        /* Biar logo dan hamburger sejajar */
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .hamburger {
+        display: flex; /* Tampilkan tombol hamburger */
+    }
+    nav ul {
+        display: none; /* Sembunyikan menu utama */
+        flex-direction: column;
+        position: absolute; /* Buat menu "melayang" */
+        top: 85px; /* Sesuaikan dengan tinggi header Anda */
+        left: 0;
+        width: 100%;
+        background-color: var(--biru-tua); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        border-bottom: 3px solid var(--merah-tua);
+    }
+    nav ul.nav-active {
+        display: flex; /* Tampilkan menu jika di-klik */
+    }
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+    nav ul li a {
+        display: block; /* Buat link jadi full-width */
+        padding: 0.8rem;
+    }
+
+
     /* Atur judul beranda di HP */
     .hero-title-container { gap: 1rem; flex-wrap: wrap; }
     #beranda.hero-section h1 { font-size: 2.5rem; order: 2; width: 100%;}
     .hero-logo:nth-of-type(1) { order: 1; }
     .hero-logo:nth-of-type(2) { order: 3; }
     .hero-logo { width: 60px; height: 60px; }
+    #beranda.hero-section h2 { font-size: 1.3rem; }
+
+    /* Atur section */
+    .content-section, #beranda.hero-section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .content-section h2 { font-size: 2rem; }
 
     /* Atur timeline di HP */
-    .timeline { padding: 1rem 0; border-left: 3px solid var(--merah-tua); }
-    .timeline-item { flex-direction: column; padding-left: 1.5rem; }
-    .timeline-item::before { left: -10px; top: -2px; width: 16px; height: 16px; }
+    .timeline { padding: 1rem 0 1rem 0.5rem; border-left: 3px solid var(--merah-tua); }
+    .timeline-item { flex-direction: column; padding-left: 1.5rem; margin-bottom: 2rem; }
+    .timeline-item::before { left: -10px; top: 0px; width: 16px; height: 16px; }
     .timeline-date { flex-basis: auto; text-align: left; padding-right: 0; margin-bottom: 0.5rem; }
     .timeline-date span { font-size: 1.2rem; }
     .timeline-content { flex-basis: auto; }
 
     /* Atur profil & sejarah & aktivitas di HP */
-    .sejarah-item,
-    .aktivitas-item {
+    .sejarah-item {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
-    .sejarah-item img,
-    .aktivitas-item img {
+    .sejarah-item img {
         width: 100%;
         max-width: 300px;
     }
     /* ==== UBAH GRID PROFIL JADI 2 KOLOM DI HP ==== */
-    .profil-grid { grid-template-columns: repeat(2, 1fr); }
+    .profil-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     /* =========================================== */
 
     /* Kartu pembina tetap full width di HP */
@@ -614,26 +622,38 @@ main {
         width: 130px;
         height: 165px;
     }
+    .profil-card h3 {
+        font-size: 1.1rem;
+        min-height: 30px;
+    }
 
      /* Ukuran foto modal dikecilkan di HP */
      #modalFoto {
         width: 150px;
         height: 190px;
      }
+     .modal-content {
+         padding: 1.5rem;
+     }
 
 }
 
 @media (max-width: 480px) {
-     /* Kalau layar KECIL banget, profil jadi 1 kolom lagi */
-     .profil-grid { grid-template-columns: 1fr; }
-     .profil-card img { /* Sedikit lebih besar di 1 kolom */
-        width: 180px;
-        height: 225px;
-    }
-      .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
-        width: 180px;
-        height: 225px;
-    }
+      /* Kalau layar KECIL banget, profil jadi 1 kolom lagi */
+      .profil-grid { grid-template-columns: 1fr; }
+      .profil-card img { /* Sedikit lebih besar di 1 kolom */
+         width: 180px;
+         height: 225px;
+     }
+       .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
+         width: 180px;
+         height: 225px;
+     }
+     
+     .logo h2 { font-size: 1.5rem; }
+     .logo p { font-size: 0.8rem; }
+     
+     #beranda.hero-section h1 { font-size: 2.2rem; }
 }
 
 
