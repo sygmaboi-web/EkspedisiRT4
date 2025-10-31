@@ -99,7 +99,7 @@ nav ul li a:focus {
     cursor: pointer;
     padding: 0;
     z-index: 1001; 
-    flex-shrink: 0; /* Hamburger jangan ikutan nyusut */
+    flex-shrink: 0; /* PENTING: Hamburger jangan ikutan nyusut */
 }
 .hamburger span {
     width: 100%;
@@ -136,6 +136,7 @@ nav ul li a:focus {
     transition: opacity 0.4s ease-in-out;
     padding: 2rem 0; /* Padding atas/bawah */
     box-sizing: border-box;
+    /* min-height dihapus untuk fix 'space putih' */
 }
 
 .page-section.active {
@@ -170,9 +171,8 @@ nav ul li a:focus {
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    /* PENTING: Bikin beranda full screen */
-    min-height: calc(100vh - 85px); /* 100% layar - tinggi header */
-    box-sizing: border-box; /* Agar padding tidak menambah tinggi */
+    /* min-height dihapus untuk fix 'space putih' */
+    box-sizing: border-box; 
 }
 
 .hero-title-container {
@@ -212,8 +212,7 @@ nav ul li a:focus {
     margin: 0 auto;
 }
 
-/* (Sisa kode CSS sama persis... ) */
-
+/* Konten Utama */
 .content-section {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -344,7 +343,13 @@ nav ul li a:focus {
     grid-column: 1 / -1;
     max-width: 500px;
     margin: 0 auto 2rem auto;
-    order: -1;
+    /* ======================================= */
+    /* === PERBAIKAN 3 (PROFIL PEMBINA) START === */
+    /* ======================================= */
+    order: -1; /* Ganti jadi -1 lagi (biar pindah ke ATAS) */
+    /* ======================================= */
+    /* === SELESAI === */
+    /* ======================================= */
 }
 .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
      width: 200px;
@@ -542,29 +547,42 @@ nav ul li a:focus {
 /* ======================================= */
 @media (max-width: 768px) {
     
-    /* ======================================= */
-    /* === INI DIA PERBAIKAN TOTALNYA === */
-    /* ======================================= */
+    /* Atur Navigasi HP */
     nav {
         flex-direction: row;
-        /* Hapus space-between, kita atur manual */
-        justify-content: flex-end; /* Dorong semua ke kanan */
+        justify-content: space-between; /* Logo di kiri, hamburger di kanan */
         align-items: center;
         width: 100%;
         padding: 0 1rem; /* Padding di HP */
+        gap: 1rem; /* Jarak aman antara logo & hamburger */
     }
 
-    /* Logo di header HILANG di HP */
+    /* Logo di header TETAP ADA */
     nav .logo {
-        display: none;
+        display: block;
+        flex-grow: 1;  /* Biarkan dia mengisi ruang */
+        flex-shrink: 1; /* Izinkan dia menyusut */
+        min-width: 0;   /* INI KUNCINYA: Boleh menyusut jadi 0 */
     }
-    /* ======================================= */
-    /* === SELESAI === */
-    /* ======================================= */
+
+    /* Atur teks di dalam logo */
+    nav .logo h2, nav .logo p {
+        white-space: nowrap;     /* Jangan turun ke bawah */
+        overflow: hidden;        /* Sembunyikan yg kepanjangan */
+        text-overflow: ellipsis; /* Kasih titik-titik (...) */
+        margin: 0; /* Reset margin */
+    }
+    nav .logo h2 {
+        font-size: 1.5rem; /* Ukuran font tablet */
+    }
+    nav .logo p {
+        font-size: 0.8rem; /* Ukuran font tablet */
+    }
 
 
     .hamburger {
         display: flex; /* Tampilkan tombol hamburger */
+        flex-shrink: 0; /* Hamburger JANGAN menyusut */
     }
     nav ul {
         display: none; /* Sembunyi by default */
@@ -609,12 +627,10 @@ nav ul li a:focus {
     #beranda.hero-section h1 { 
         font-size: 2rem; /* Kecilkan font judul */
         margin: 0;
-        /* Hapus 'order' dan 'width' */
     }
     .hero-logo { 
         width: 45px; /* Kecilkan logo */
         height: 45px; 
-        /* Hapus 'order' */
     }
     
     #beranda.hero-section h2 { 
@@ -687,7 +703,13 @@ nav ul li a:focus {
          height: 225px;
      }
      
-     /* Logo di header sudah 'display: none', jadi aturan di bawah ini tidak diperlukan lagi */
+     /* Kecilkan font logo LAGI di HP sempit */
+     nav .logo h2 {
+        font-size: 1.2rem;
+     }
+     nav .logo p {
+        font-size: 0.75rem;
+     }
      
      #beranda.hero-section h1 { 
         font-size: 1.8rem; /* Kecilkan lagi di HP super sempit */
