@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const waAyah = formatWaLink(data.telpAyah);
             if (waAyah) {
-                modalTelpAyah.textContent = "Kontak Ayah: " + data.telpAyah;
+                modalTelpAyah.textContent = "Kontak Ayah: "D" + data.telpAyah;
                 modalTelpAyah.href = waAyah;
                 modalTelpAyah.style.display = 'block';
             } else {
