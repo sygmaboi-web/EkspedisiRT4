@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('nav ul li a');
     const pages = document.querySelectorAll('.page-section');
     const pageContainer = document.querySelector('.page-container');
+    
+    // Ambil elemen menu hamburger
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const navUl = document.querySelector('nav ul');
 
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (pageContainer) {
             const activePage = pageContainer.querySelector('.page-section.active');
             if (activePage) {
+                // Set minHeight agar transisi fade tidak "melompat"
                 pageContainer.style.minHeight = activePage.offsetHeight + 'px';
             }
         }
@@ -41,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
             targetPage.classList.add('active');
              setTimeout(() => {
                 if (pageContainer) {
-                    pageContainer.style.minHeight = ''; 
+                    pageContainer.style.minHeight = ''; // Kembalikan ke auto
                 }
-            }, 400); 
+            }, 400); // Sesuaikan dengan durasi transisi CSS
         }
         window.scrollTo(0, 0);
     }
@@ -56,9 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!currentPage || currentPage.id !== targetId) {
                  showPage(targetId);
-                 window.location.hash = targetId;
+                 window.location.hash = targetId; // Ubah hash URL
             }
 
+            // Otomatis tutup hamburger menu setelah link diklik
             if (navUl && hamburgerBtn) {
                 navUl.classList.remove('nav-active');
                 hamburgerBtn.classList.remove('active');
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Cek hash di URL pas pertama kali buka
     function handleInitialLoad() {
         let initialPageId = 'beranda'; 
         if (window.location.hash) {
@@ -86,43 +91,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const profilModalCloseBtn = document.getElementById('profilModalCloseBtn');
     const profilTriggers = document.querySelectorAll('.profil-trigger');
 
+    // Ambil elemen di dalam modal profil
     const modalFoto = document.getElementById('modalFoto');
     const modalNama = document.getElementById('modalNama');
     const modalPeran = document.getElementById('modalPeran');
     const modalSekolah = document.getElementById('modalSekolah');
+    
+    // Elemen ini sekarang adalah <a>
     const modalTelpFasilitator = document.getElementById('modalTelpFasilitator');
     const modalTelpAyah = document.getElementById('modalTelpAyah');
     const modalTelpIbu = document.getElementById('modalTelpIbu');
 
     profilTriggers.forEach(card => {
         card.addEventListener('click', function() {
-            const data = this.dataset; 
+            const data = this.dataset; // Ambil semua data-*
 
             // ===== KODE UNTUK NAMPILIN INFO (ANTI UNDEFINED) =====
             modalFoto.src = data.foto;
-            modalFoto.onerror = function() { this.src = 'placeholder.png'; }; 
+            modalFoto.onerror = function() { this.src = 'placeholder.png'; }; // Fallback jika foto error
             modalNama.textContent = data.nama;
             modalPeran.textContent = data.peran;
             modalSekolah.textContent = "Asal Sekolah: " + data.sekolah;
             // ===================================================
 
             // --- Logika untuk Link WA ---
+
+            // 1. Proses Link Fasilitator
             const waFas = formatWaLink(data.telpFasilitator);
             if (waFas) {
                 modalTelpFasilitator.textContent = "Kontak Fasilitator: " + data.telpFasilitator;
                 modalTelpFasilitator.href = waFas;
-                modalTelpFasilitator.style.display = 'block';
+                modalTelpFasilitator.style.display = 'block'; // Tampilkan
             } else {
-                modalTelpFasilitator.style.display = 'none';
+                modalTelpFasilitator.style.display = 'none'; // Sembunyikan
             }
+
+            // 2. Proses Link Ayah
             const waAyah = formatWaLink(data.telpAyah);
             if (waAyah) {
-                modalTelpAyah.textContent = "Kontak Ayah: "D" + data.telpAyah;
+                // ===== INI DIA YANG DIBENERIN (TANDA KUTIPNYA) =====
+                modalTelpAyah.textContent = "Kontak Ayah: " + data.telpAyah;
+                // ===================================================
                 modalTelpAyah.href = waAyah;
                 modalTelpAyah.style.display = 'block';
             } else {
                 modalTelpAyah.style.display = 'none';
             }
+
+            // 3. Proses Link Ibu
             const waIbu = formatWaLink(data.telpIbu);
             if (waIbu) {
                 modalTelpIbu.textContent = "Kontak Ibu: " + data.telpIbu;
@@ -132,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalTelpIbu.style.display = 'none';
             }
             
+            // Tampilkan modal
             profilModalOverlay.style.display = 'flex';
             setTimeout(() => {
                 profilModalOverlay.style.opacity = '1';
@@ -140,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Fungsi menutup modal profil
     function closeProfilModal() {
         profilModalOverlay.style.opacity = '0';
         profilModalContent.style.transform = 'scale(0.9)';
@@ -156,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- 3. LOGIKA MODAL (POP-UP) KEGIATAN ---
+
     const kegiatanModalOverlay = document.getElementById('kegiatanModal');
     const kegiatanModalContent = kegiatanModalOverlay.querySelector('.modal-content');
     const kegiatanModalCloseBtn = document.getElementById('kegiatanModalCloseBtn');
@@ -172,10 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     kegiatanModalOverlay.style.opacity = '1';
                     kegiatanModalContent.style.transform = 'scale(1)';
                 }, 10);
+            } else {
+                console.error("Konten detail tidak ditemukan.");
             }
         });
     });
 
+    // Fungsi menutup modal kegiatan
      function closeKegiatanModal() {
         kegiatanModalOverlay.style.opacity = '0';
         kegiatanModalContent.style.transform = 'scale(0.9)';
@@ -191,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
          }
     });
 
+    // (Opsional) Tutup modal dengan tombol Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === "Escape") {
             if (profilModalOverlay.style.opacity === '1') {
