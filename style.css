@@ -20,6 +20,7 @@ body {
     background-color: var(--latar-terang);
     color: var(--teks-biasa);
     line-height: 1.6;
+    /* transition: all 0.3s ease; -- DIHAPUS */
 }
 
 /* Header dan Navigasi */
@@ -364,3 +365,317 @@ nav ul li a:focus {
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 32, 74, 0.85);
+    z-index: 2000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box; 
+}
+.modal-content {
+    background-color: var(--putih);
+    padding: 2rem;
+    border-radius: 8px;
+    border-top: 5px solid var(--gold);
+    border-bottom: 5px solid var(--merah-tua);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh; /* Beri sedikit ruang */
+    overflow-y: auto;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    box-sizing: border-box; 
+}
+.modal-close {
+    position: sticky; 
+    top: -1rem; /* Sesuaikan posisi */
+    margin-right: -1rem; /* Sesuaikan posisi */
+    float: right;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 2010;
+}
+.modal-close:hover { color: var(--merah-tua); }
+
+/* --- Style Modal Profil --- */
+#modalFoto {
+    width: 220px; 
+    height: 280px; 
+    border-radius: 8px; 
+    object-fit: cover;
+    border: 4px solid var(--biru-tua);
+    margin-bottom: 1rem;
+}
+#modalNama {
+    font-size: 1.8rem;
+    color: var(--merah-tua);
+    margin: 0.5rem 0;
+}
+#modalPeran {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--biru-tua);
+    margin: 0.5rem 0;
+}
+#modalSekolah {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.3rem 0;
+    padding-bottom: 0.5rem;
+}
+.modal-kontak {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: left;
+}
+.modal-kontak .kontak-link {
+    display: block;
+    background-color: #25D366; /* Warna WA */
+    color: var(--putih) !important;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+.modal-kontak .kontak-link:hover {
+    background-color: #128C7E;
+}
+
+
+/* --- Style Modal Kegiatan --- */
+.kegiatan-modal-content {
+    max-width: 700px;
+    text-align: left;
+}
+#kegiatanModalBody h4 {
+    font-size: 1.6rem;
+    color: var(--merah-tua);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.5rem;
+}
+#kegiatanModalBody h5 {
+    font-size: 1.3rem;
+    color: var(--biru-tua);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #eee;
+}
+#kegiatanModalBody p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+
+/* CSS SEJARAH (Layout Kiri-Kanan) */
+.sejarah-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: var(--latar-alternatif);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid var(--merah-tua);
+}
+.sejarah-item img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #eee;
+    flex-shrink: 0;
+}
+.sejarah-item div {
+    flex: 1;
+    min-width: 0; /* Cegah teks keluar */
+}
+.sejarah-item h3 {
+    color: var(--biru-tua);
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+.sejarah-item p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+
+/* ======================================= */
+/* Media Query (Tampilan HP) */
+/* ======================================= */
+@media (max-width: 768px) {
+    
+    /* Atur Navigasi HP */
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .hamburger {
+        display: flex; /* Tampilkan tombol hamburger */
+    }
+    nav ul {
+        display: none; /* Sembunyi by default */
+        flex-direction: column;
+        position: absolute; /* Buat menu "melayang" */
+        top: 85px; /* Sesuaikan dengan tinggi header Anda */
+        left: 0;
+        width: 100%;
+        background-color: var(--biru-tua); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        border-bottom: 3px solid var(--merah-tua);
+        z-index: 1000;
+    }
+    nav ul.nav-active {
+        display: flex; /* Tampilkan menu jika diklik */
+    }
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+    nav ul li a {
+        display: block; /* Buat link jadi full-width */
+        padding: 0.8rem;
+    }
+
+
+    /* Atur judul beranda di HP */
+    .hero-title-container { gap: 1rem; flex-wrap: wrap; }
+    #beranda.hero-section h1 { font-size: 2.5rem; order: 2; width: 100%;}
+    .hero-logo:nth-of-type(1) { order: 1; }
+    .hero-logo:nth-of-type(2) { order: 3; }
+    .hero-logo { width: 60px; height: 60px; }
+    #beranda.hero-section h2 { font-size: 1.3rem; }
+
+    /* Atur section */
+    .content-section, #beranda.hero-section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .content-section h2 { font-size: 2rem; }
+
+    /* Atur timeline di HP */
+    .timeline { padding: 1rem 0 1rem 0.5rem; border-left: 3px solid var(--merah-tua); }
+    .timeline-item { flex-direction: column; padding-left: 1.5rem; margin-bottom: 2rem; }
+    .timeline-item::before { left: -10px; top: 0px; width: 16px; height: 16px; }
+    .timeline-date { flex-basis: auto; text-align: left; padding-right: 0; margin-bottom: 0.5rem; }
+    .timeline-date span { font-size: 1.2rem; }
+    .timeline-content { flex-basis: auto; }
+
+    /* Atur profil & sejarah di HP */
+    .sejarah-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .sejarah-item img {
+        width: 100%;
+        max-width: 300px;
+    }
+    .profil-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+    .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] {
+        grid-column: 1 / -1;
+        max-width: 100%;
+    }
+    .profil-card img {
+        width: 130px;
+        height: 165px; /* Sesuaikan rasio */
+    }
+     .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
+        width: 130px;
+        height: 165px;
+    }
+    .profil-card h3 {
+        font-size: 1.1rem;
+        min-height: 30px;
+    }
+
+     #modalFoto {
+        width: 150px;
+        height: 190px;
+     }
+     .modal-content {
+          padding: 1.5rem;
+     }
+
+}
+
+@media (max-width: 480px) {
+       /* Kalau layar KECIL banget, profil jadi 1 kolom lagi */
+       .profil-grid { grid-template-columns: 1fr; }
+       .profil-card img { /* Sedikit lebih besar di 1 kolom */
+          width: 180px;
+          height: 225px;
+      }
+       .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
+          width: 180px;
+          height: 225px;
+      }
+      
+      .logo h2 { font-size: 1.5rem; }
+      .logo p { font-size: 0.8rem; }
+      
+      #beranda.hero-section h1 { font-size: 2.2rem; }
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--biru-tua);
+    color: var(--gold);
+    margin-top: 0;
+    border-top: 5px solid var(--merah-tua);
+    font-size: 0.9rem;
+}
+
+/* Tombol Ganti Mode */
+#mode-switcher-btn {
+    background-color: var(--gold);
+    color: var(--biru-tua);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+#mode-switcher-btn:hover {
+    background-color: var(--putih);
+}
+
+/* Kode 'body.force-desktop-mode' DIHAPUS DARI SINI */
+/* KODE CSS YANG BIKIN RUSAK UDAH DIHAPUS TOTAL */
