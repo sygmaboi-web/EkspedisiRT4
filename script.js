@@ -235,47 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- 5. LOGIKA BARU UNTUK GANTI MODE (VERSI VIEWPORT) ---
-    const modeSwitcherBtn = document.getElementById('mode-switcher-btn');
-    // Ambil tag meta viewport
-    const viewportMeta = document.getElementById('viewport-meta');
-    
-    // Definisikan 2 mode viewport
-    const mobileViewport = "width=device-width, initial-scale=1.0";
-    const desktopViewport = "width=1200"; // Lebar desktop kita
-
-    function setMode(mode) {
-        if (mode === 'desktop') {
-            viewportMeta.setAttribute('content', desktopViewport);
-            modeSwitcherBtn.textContent = 'Tampilkan Versi HP';
-            localStorage.setItem('mode', 'desktop');
-            // Tutup menu HP jika kebuka
-            navUl.classList.remove('nav-active');
-            hamburgerBtn.classList.remove('active');
-        } else {
-            viewportMeta.setAttribute('content', mobileViewport);
-            modeSwitcherBtn.textContent = 'Tampilkan Versi Desktop';
-            localStorage.setItem('mode', 'mobile');
-        }
-    }
-
-    // Cek mode yang tersimpan saat load
-    const savedMode = localStorage.getItem('mode');
-    if (savedMode === 'desktop') {
-        setMode('desktop');
-    } else {
-        setMode('mobile'); // Default
-    }
-
-    // Event listener untuk tombol ganti mode
-    if (modeSwitcherBtn) { 
-        modeSwitcherBtn.addEventListener('click', () => {
-            // Cek mode SEKARANG
-            if (localStorage.getItem('mode') === 'desktop') {
-                setMode('mobile');
-            } else {
-                setMode('desktop');
-            }
-        });
-    }
+    //
+    // ... SEMUA KODE DI BAGIAN INI DIHAPUS ...
+    //
 
 });
