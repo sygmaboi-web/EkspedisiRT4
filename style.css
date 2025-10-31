@@ -124,6 +124,14 @@ nav ul li a:focus {
     position: relative;
     overflow-x: hidden; 
     flex-grow: 1; /* PENTING: Mendorong footer ke bawah */
+    /* ======================================= */
+    /* === PERBAIKAN "SPACE PUTIH" START === */
+    /* ======================================= */
+    display: flex;
+    flex-direction: column;
+    /* ======================================= */
+    /* === SELESAI === */
+    /* ======================================= */
 }
 
 .page-section {
@@ -143,6 +151,15 @@ nav ul li a:focus {
     opacity: 1;
     visibility: visible;
     position: relative; 
+    /* ======================================= */
+    /* === PERBAIKAN "SPACE PUTIH" START === */
+    /* ======================================= */
+    flex-grow: 1; /* Halaman AKTIF akan mengisi sisa ruang */
+    display: flex; /* Aktifkan flex untuk centering (khusus beranda) */
+    flex-direction: column;
+    /* ======================================= */
+    /* === SELESAI === */
+    /* ======================================= */
 }
 
 
@@ -154,12 +171,21 @@ nav ul li a:focus {
     width: 100%;
 }
 
+/* ======================================= */
+/* === PERBAIKAN "SPACE PUTIH" START === */
+/* ======================================= */
+/* Kita override sedikit khusus untuk #beranda */
 #beranda.hero-section.active {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Tetap center konten beranda */
 }
+/* Halaman KONTEN lain tidak perlu center */
+.content-section.active {
+    flex-grow: 1; /* Pastikan halaman konten juga tumbuh */
+    display: block; /* Ganti jadi block biasa, tidak perlu flex center */
+}
+/* ======================================= */
+/* === SELESAI === */
+/* ======================================= */
 
 
 /* Bagian 1: Hero Section (Beranda) */
@@ -171,7 +197,6 @@ nav ul li a:focus {
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    /* min-height dihapus untuk fix 'space putih' */
     box-sizing: border-box; 
 }
 
@@ -343,13 +368,7 @@ nav ul li a:focus {
     grid-column: 1 / -1;
     max-width: 500px;
     margin: 0 auto 2rem auto;
-    /* ======================================= */
-    /* === PERBAIKAN 3 (PROFIL PEMBINA) START === */
-    /* ======================================= */
-    order: -1; /* Ganti jadi -1 lagi (biar pindah ke ATAS) */
-    /* ======================================= */
-    /* === SELESAI === */
-    /* ======================================= */
+    order: -1; /* Pembina di ATAS (sesuai permintaan) */
 }
 .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
      width: 200px;
