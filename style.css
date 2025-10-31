@@ -20,7 +20,6 @@ body {
     background-color: var(--latar-terang);
     color: var(--teks-biasa);
     line-height: 1.6;
-    /* transition: all 0.3s ease; -- DIHAPUS */
 }
 
 /* Header dan Navigasi */
@@ -171,7 +170,7 @@ nav ul li a:focus {
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    min-height: 40vh;
+    /* min-height: 40vh; <-- BARIS INI DIHAPUS agar tingginya "full" */
 }
 
 .hero-title-container {
@@ -553,7 +552,7 @@ nav ul li a:focus {
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         padding: 1rem 0;
         border-bottom: 3px solid var(--merah-tua);
-        z-index: 1000;
+        z-index: 1500; /* <<< INI DIA PERBAIKANNYA (diubah dari 1000) */
     }
     nav ul.nav-active {
         display: flex; /* Tampilkan menu jika diklik */
@@ -626,27 +625,27 @@ nav ul li a:focus {
         height: 190px;
      }
      .modal-content {
-          padding: 1.5rem;
+         padding: 1.5rem;
      }
 
 }
 
 @media (max-width: 480px) {
-       /* Kalau layar KECIL banget, profil jadi 1 kolom lagi */
-       .profil-grid { grid-template-columns: 1fr; }
-       .profil-card img { /* Sedikit lebih besar di 1 kolom */
-          width: 180px;
-          height: 225px;
-      }
-       .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
-          width: 180px;
-          height: 225px;
-      }
-      
-      .logo h2 { font-size: 1.5rem; }
-      .logo p { font-size: 0.8rem; }
-      
-      #beranda.hero-section h1 { font-size: 2.2rem; }
+     /* Kalau layar KECIL banget, profil jadi 1 kolom lagi */
+     .profil-grid { grid-template-columns: 1fr; }
+     .profil-card img { /* Sedikit lebih besar di 1 kolom */
+         width: 180px;
+         height: 225px;
+     }
+     .profil-card[data-nama="Ahmad Luthfi Firdaus S.Pd"] img {
+         width: 180px;
+         height: 225px;
+     }
+     
+     .logo h2 { font-size: 1.5rem; }
+     .logo p { font-size: 0.8rem; }
+     
+     #beranda.hero-section h1 { font-size: 2.2rem; }
 }
 
 
@@ -661,21 +660,5 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Tombol Ganti Mode */
-#mode-switcher-btn {
-    background-color: var(--gold);
-    color: var(--biru-tua);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-}
-#mode-switcher-btn:hover {
-    background-color: var(--putih);
-}
-
-/* Kode 'body.force-desktop-mode' DIHAPUS DARI SINI */
-/* KODE CSS YANG BIKIN RUSAK UDAH DIHAPUS TOTAL */
+/* Tombol Ganti Mode <-- BAGIAN INI DIHAPUS */
+/* CSS #mode-switcher-btn DIHAPUS */
