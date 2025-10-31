@@ -99,7 +99,7 @@ nav ul li a:focus {
     cursor: pointer;
     padding: 0;
     z-index: 1001; 
-    flex-shrink: 0; /* PENTING: Hamburger jangan ikutan nyusut */
+    flex-shrink: 0; /* Hamburger jangan ikutan nyusut */
 }
 .hamburger span {
     width: 100%;
@@ -212,7 +212,8 @@ nav ul li a:focus {
     margin: 0 auto;
 }
 
-/* Konten Utama */
+/* (Sisa kode CSS sama persis... ) */
+
 .content-section {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -541,33 +542,24 @@ nav ul li a:focus {
 /* ======================================= */
 @media (max-width: 768px) {
     
-    /* Atur Navigasi HP */
+    /* ======================================= */
+    /* === INI DIA PERBAIKAN TOTALNYA === */
+    /* ======================================= */
     nav {
         flex-direction: row;
-        justify-content: space-between;
+        /* Hapus space-between, kita atur manual */
+        justify-content: flex-end; /* Dorong semua ke kanan */
         align-items: center;
         width: 100%;
-        padding: 0 1rem; /* Kurangi padding nav di HP */
+        padding: 0 1rem; /* Padding di HP */
     }
 
-    /* ======================================= */
-    /* === PERBAIKAN 1 (MENU KEPOTONG) START === */
-    /* ======================================= */
+    /* Logo di header HILANG di HP */
     nav .logo {
-        min-width: 0; /* Izinkan .logo untuk menyusut */
-    }
-    nav .logo h2 {
-        font-size: 1.5rem;
-        white-space: normal; /* Izinkan teks wrap */
-        word-break: break-word; /* Pecah kata jika perlu */
-    }
-    nav .logo p {
-        font-size: 0.8rem;
-        white-space: normal; /* Izinkan teks wrap */
-        word-break: break-word; /* Pecah kata jika perlu */
+        display: none;
     }
     /* ======================================= */
-    /* === PERBAIKAN 1 (MENU KEPOTONG) END === */
+    /* === SELESAI === */
     /* ======================================= */
 
 
@@ -608,11 +600,8 @@ nav ul li a:focus {
         background-color: #f0f0f0;
     }
 
-    /* ======================================= */
-    /* === PERBAIKAN 2 (LOGO KANAN-KIRI) START === */
-    /* ======================================= */
 
-    /* Atur judul beranda di HP */
+    /* Atur judul beranda di HP (Ini fix logo kanan-kiri) */
     .hero-title-container { 
         gap: 1rem; 
         flex-wrap: nowrap; /* Jangan di-wrap, biarkan sejajar */
@@ -627,12 +616,7 @@ nav ul li a:focus {
         height: 45px; 
         /* Hapus 'order' */
     }
-    /* Hapus semua aturan order .hero-logo:nth-of-type() */
     
-    /* ======================================= */
-    /* === PERBAIKAN 2 (LOGO KANAN-KIRI) END === */
-    /* ======================================= */
-
     #beranda.hero-section h2 { 
         font-size: 1.3rem; 
     }
@@ -703,13 +687,7 @@ nav ul li a:focus {
          height: 225px;
      }
      
-     /* Ukuran font logo dikecilkan LAGI untuk HP sempit */
-     nav .logo h2 {
-        font-size: 1.2rem; /* Jauh lebih kecil */
-     }
-     nav .logo p {
-        font-size: 0.75rem; /* Ikut kecil */
-     }
+     /* Logo di header sudah 'display: none', jadi aturan di bawah ini tidak diperlukan lagi */
      
      #beranda.hero-section h1 { 
         font-size: 1.8rem; /* Kecilkan lagi di HP super sempit */
