@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!currentPage || currentPage.id !== targetId) {
                  showPage(targetId);
-                 // [FIX] BARIS INI DIKEMBALIKAN. Ini adalah perbaikannya.
-                 window.location.hash = targetId; 
+                 window.location.hash = targetId; // Ubah hash URL
             }
 
             // Otomatis tutup hamburger menu setelah link diklik
@@ -109,13 +108,13 @@ document.addEventListener('DOMContentLoaded', function() {
         card.addEventListener('click', function() {
             const data = this.dataset; // Ambil semua data-*
 
-            // ===== INI BAGIAN YANG HILANG DI KODE KAMU =====
+            // ===== INI KODE YANG BENER BUAT NAMPILIN INFO =====
             modalFoto.src = data.foto;
             modalFoto.onerror = function() { this.src = 'placeholder.png'; }; // Fallback jika foto error
             modalNama.textContent = data.nama;
             modalPeran.textContent = data.peran;
             modalSekolah.textContent = "Asal Sekolah: " + data.sekolah;
-            // ===============================================
+            // ===================================================
 
             // --- Logika Baru untuk Link WA ---
 
@@ -231,6 +230,45 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburgerBtn.addEventListener('click', () => {
             navUl.classList.toggle('nav-active');
             hamburgerBtn.classList.toggle('active');
+        });
+    }
+
+    // --- 5. LOGIKA BARU UNTUK GANTI MODE (DESKTOP/MOBILE) ---
+    const modeSwitcherBtn = document.getElementById('mode-switcher-btn');
+    const body = document.body;
+
+    // Fungsi untuk update mode
+    function setMode(mode) {
+        if (mode === 'desktop') {
+            body.classList.add('force-desktop-mode');
+            modeSwitcherBtn.textContent = 'Tampilkan Versi HP';
+            localStorage.setItem('mode', 'desktop');
+            // Tutup menu HP jika kebuka
+            navUl.classList.remove('nav-active');
+            hamburgerBtn.classList.remove('active');
+        } else {
+            body.classList.remove('force-desktop-mode');
+            modeSwitcherBtn.textContent = 'Tampilkan Versi Desktop';
+            localStorage.setItem('mode', 'mobile');
+        }
+    }
+
+    // Cek mode yang tersimpan saat load
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode === 'desktop') {
+        setMode('desktop');
+    } else {
+        setMode('mobile'); // Default
+    }
+
+    // Event listener untuk tombol ganti mode
+    if (modeSwitcherBtn) { // Cek dulu tombolnya ada apa enggak
+        modeSwitcherBtn.addEventListener('click', () => {
+            if (body.classList.contains('force-desktop-mode')) {
+                setMode('mobile');
+            } else {
+                setMode('desktop');
+            }
         });
     }
 
