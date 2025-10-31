@@ -3,6 +3,7 @@ function formatWaLink(phone) {
     if (!phone || phone === '-') {
         return null; // Kembalikan null jika tidak ada nomor
     }
+    // Hapus spasi, strip, dan ganti 0 di depan dengan 62
     let formattedPhone = phone.replace(/-/g, '').replace(/ /g, '');
     if (formattedPhone.startsWith('0')) {
         formattedPhone = '62' + formattedPhone.substring(1);
