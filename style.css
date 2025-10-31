@@ -99,6 +99,7 @@ nav ul li a:focus {
     cursor: pointer;
     padding: 0;
     z-index: 1001; 
+    flex-shrink: 0; /* PENTING: Hamburger jangan ikutan nyusut */
 }
 .hamburger span {
     width: 100%;
@@ -549,13 +550,26 @@ nav ul li a:focus {
         padding: 0 1rem; /* Kurangi padding nav di HP */
     }
 
-    /* Ukuran font logo dikecilkan untuk tablet */
+    /* ======================================= */
+    /* === PERBAIKAN 1 (MENU KEPOTONG) START === */
+    /* ======================================= */
+    nav .logo {
+        min-width: 0; /* Izinkan .logo untuk menyusut */
+    }
     nav .logo h2 {
         font-size: 1.5rem;
+        white-space: normal; /* Izinkan teks wrap */
+        word-break: break-word; /* Pecah kata jika perlu */
     }
     nav .logo p {
         font-size: 0.8rem;
+        white-space: normal; /* Izinkan teks wrap */
+        word-break: break-word; /* Pecah kata jika perlu */
     }
+    /* ======================================= */
+    /* === PERBAIKAN 1 (MENU KEPOTONG) END === */
+    /* ======================================= */
+
 
     .hamburger {
         display: flex; /* Tampilkan tombol hamburger */
@@ -594,14 +608,34 @@ nav ul li a:focus {
         background-color: #f0f0f0;
     }
 
+    /* ======================================= */
+    /* === PERBAIKAN 2 (LOGO KANAN-KIRI) START === */
+    /* ======================================= */
 
     /* Atur judul beranda di HP */
-    .hero-title-container { gap: 1rem; flex-wrap: wrap; }
-    #beranda.hero-section h1 { font-size: 2.5rem; order: 2; width: 100%;}
-    .hero-logo:nth-of-type(1) { order: 1; }
-    .hero-logo:nth-of-type(2) { order: 3; }
-    .hero-logo { width: 60px; height: 60px; }
-    #beranda.hero-section h2 { font-size: 1.3rem; }
+    .hero-title-container { 
+        gap: 1rem; 
+        flex-wrap: nowrap; /* Jangan di-wrap, biarkan sejajar */
+    }
+    #beranda.hero-section h1 { 
+        font-size: 2rem; /* Kecilkan font judul */
+        margin: 0;
+        /* Hapus 'order' dan 'width' */
+    }
+    .hero-logo { 
+        width: 45px; /* Kecilkan logo */
+        height: 45px; 
+        /* Hapus 'order' */
+    }
+    /* Hapus semua aturan order .hero-logo:nth-of-type() */
+    
+    /* ======================================= */
+    /* === PERBAIKAN 2 (LOGO KANAN-KIRI) END === */
+    /* ======================================= */
+
+    #beranda.hero-section h2 { 
+        font-size: 1.3rem; 
+    }
 
     /* Atur section */
     .content-section, #beranda.hero-section {
@@ -669,20 +703,24 @@ nav ul li a:focus {
          height: 225px;
      }
      
-     /* ======================================= */
-     /* === INI DIA PERBAIKANNYA === */
-     /* ======================================= */
      /* Ukuran font logo dikecilkan LAGI untuk HP sempit */
      nav .logo h2 {
         font-size: 1.2rem; /* Jauh lebih kecil */
      }
      nav .logo p {
         font-size: 0.75rem; /* Ikut kecil */
-        white-space: nowrap; /* Biar gak ke-wrap */
      }
-     /* ======================================= */
      
-     #beranda.hero-section h1 { font-size: 2.2rem; }
+     #beranda.hero-section h1 { 
+        font-size: 1.8rem; /* Kecilkan lagi di HP super sempit */
+     }
+     .hero-logo {
+         width: 40px; /* Kecilkan lagi */
+         height: 40px;
+     }
+     .hero-title-container {
+         gap: 0.5rem; /* Rapatkan jaraknya */
+     }
 }
 
 
@@ -694,5 +732,4 @@ footer {
     color: var(--gold);
     border-top: 5px solid var(--merah-tua);
     font-size: 0.9rem;
-    /* margin-top: 0; -- Dihapus, diganti flex-grow */
 }
