@@ -20,6 +20,7 @@ body {
     background-color: var(--latar-terang);
     color: var(--teks-biasa);
     line-height: 1.6;
+    /* transition: all 0.3s ease; -- DIHAPUS */
 }
 
 /* Header dan Navigasi */
@@ -676,9 +677,4 @@ footer {
     background-color: var(--putih);
 }
 
-
-/* ================================================== */
-/* ==== [INI YANG BIKIN ERROR] Mode Override Paksa Desktop ==== */
-/* ================================================== */
-
-/* SEMUA KODE 'body.force-desktop-mode' DIHAPUS DARI SINI */
+/* Kode 'body.force-desktop-mode' DIHAPUS DARI SINI */
