@@ -21,6 +21,17 @@ body {
     color: var(--teks-biasa);
     line-height: 1.6;
     overflow-x: hidden; /* Mencegah scroll horizontal */
+
+    /* ======================================= */
+    /* === PERBAIKAN 2 (MASALAH PUTIH) START === */
+    /* ======================================= */
+    /* Ini membuat body jadi layout flex, minimal setinggi layar */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* ======================================= */
+    /* === PERBAIKAN 2 (MASALAH PUTIH) END === */
+    /* ======================================= */
 }
 
 /* Header dan Navigasi */
@@ -121,6 +132,16 @@ nav ul li a:focus {
 .page-container {
     position: relative;
     overflow-x: hidden; 
+
+    /* ======================================= */
+    /* === PERBAIKAN 2 (MASALAH PUTIH) START === */
+    /* ======================================= */
+    /* Ini membuat .page-container (pembungkus section) */
+    /* "tumbuh" mengisi sisa ruang, mendorong footer ke bawah */
+    flex-grow: 1;
+    /* ======================================= */
+    /* === PERBAIKAN 2 (MASALAH PUTIH) END === */
+    /* ======================================= */
 }
 
 .page-section {
@@ -131,7 +152,7 @@ nav ul li a:focus {
     left: 0;
     width: 100%;
     transition: opacity 0.4s ease-in-out;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 120px); /* Ini biarkan saja, flex-grow lebih penting */
     padding: 2rem 0; /* Padding atas/bawah */
     box-sizing: border-box;
 }
@@ -142,24 +163,14 @@ nav ul li a:focus {
     position: relative; 
 }
 
-/* ======================================= */
-/* === PERBAIKAN 1 (MASALAH PUTIH) START === */
-/* ======================================= */
 
-/* Dulu, .content-section dan #beranda punya max-width. SEKARANG TIDAK. */
-/* Ini membuat background-nya full 100% */
 .content-section,
 #beranda.hero-section {
-    padding-left: 2rem;  /* Kita tetap beri padding */
-    padding-right: 2rem; /* agar rapi di HP */
+    padding-left: 2rem; 
+    padding-right: 2rem;
     box-sizing: border-box;
     width: 100%;
 }
-
-/* ======================================= */
-/* === PERBAIKAN 1 (MASALAH PUTIH) END === */
-/* ======================================= */
-
 
 #beranda.hero-section.active {
     display: flex;
@@ -178,6 +189,9 @@ nav ul li a:focus {
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 3rem;
+    /* Kita tambahkan min-height di sini */
+    min-height: calc(100vh - 85px); /* 100% layar - tinggi header */
+    box-sizing: border-box; /* Agar padding tidak menambah tinggi */
 }
 
 .hero-title-container {
@@ -234,8 +248,6 @@ nav ul li a:focus {
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
     text-align: center;
-    
-    /* PERBAIKAN 1: Batasi lebar H2, tapi biarkan section-nya full */
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -252,7 +264,7 @@ nav ul li a:focus {
 /* CSS KEGIATAN (TIMELINE) */
 .timeline {
     position: relative;
-    max-width: 900px; /* Konten ini sudah benar, punya max-width sendiri */
+    max-width: 900px; 
     margin: 0 auto;
     padding: 2rem 0;
     border-left: 4px solid var(--merah-tua);
@@ -312,8 +324,6 @@ nav ul li a:focus {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    
-    /* PERBAIKAN 1: Batasi lebar grid, tapi biarkan section-nya full */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -517,8 +527,6 @@ nav ul li a:focus {
     margin-bottom: 1.5rem;
     border-radius: 8px;
     border-left: 5px solid var(--merah-tua);
-    
-    /* PERBAIKAN 1: Batasi lebar item, tapi biarkan section-nya full */
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -560,6 +568,22 @@ nav ul li a:focus {
         width: 100%;
         padding: 0 1rem; /* Kurangi padding nav di HP */
     }
+
+    /* ======================================= */
+    /* === PERBAIKAN 1 (MENU KEPOTONG) START === */
+    /* ======================================= */
+    /* Kita kecilkan font logo di 768px, BUKAN di 480px */
+    nav .logo h2 {
+        font-size: 1.5rem;
+    }
+    nav .logo p {
+        font-size: 0.8rem;
+    }
+    /* ======================================= */
+    /* === PERBAIKAN 1 (MENU KEPOTONG) END === */
+    /* ======================================= */
+
+
     .hamburger {
         display: flex; /* Tampilkan tombol hamburger */
     }
@@ -574,14 +598,7 @@ nav ul li a:focus {
         padding: 1rem 0;
         border-bottom: 3px solid var(--merah-tua);
         z-index: 1500;
-        
-        /* ======================================= */
-        /* === PERBAIKAN 2 (MENU HP) START === */
-        /* ======================================= */
         background-color: var(--putih); /* Ganti jadi putih */
-        /* ======================================= */
-        /* === PERBAIKAN 2 (MENU HP) END === */
-        /* ======================================= */
     }
     nav ul.nav-active {
         display: flex; /* Tampilkan menu jika diklik */
@@ -594,17 +611,10 @@ nav ul li a:focus {
     nav ul li a {
         display: block; /* Buat link jadi full-width */
         padding: 0.8rem;
-        
-        /* ======================================= */
-        /* === PERBAIKAN 2 (MENU HP) START === */
-        /* ======================================= */
         color: var(--biru-tua); /* Ganti warna link jadi biru */
         border-bottom: none !important; /* Hilangkan border gold di HP */
-        /* ======================================= */
-        /* === PERBAIKAN 2 (MENU HP) END === */
-        /* ======================================= */
     }
-    /* PERBAIKAN 2: Ganti warna hover di HP */
+    /* Ganti warna hover di HP */
     nav ul li a:hover,
     nav ul li a:focus {
         color: var(--merah-tua);
@@ -686,8 +696,7 @@ nav ul li a:focus {
          height: 225px;
      }
      
-     .logo h2 { font-size: 1.5rem; }
-     .logo p { font-size: 0.8rem; }
+     /* Kita HAPUS .logo h2 dan .logo p dari sini karena sudah pindah ke 768px */
      
      #beranda.hero-section h1 { font-size: 2.2rem; }
 }
@@ -699,9 +708,7 @@ footer {
     padding: 2rem;
     background-color: var(--biru-tua);
     color: var(--gold);
-    margin-top: 0;
+    margin-top: 0; /* Dulu ada margin-top, sekarang tidak perlu */
     border-top: 5px solid var(--merah-tua);
     font-size: 0.9rem;
 }
-
-/* Tombol Ganti Mode sudah dihapus */
