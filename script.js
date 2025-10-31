@@ -108,13 +108,13 @@ document.addEventListener('DOMContentLoaded', function() {
         card.addEventListener('click', function() {
             const data = this.dataset; // Ambil semua data-*
 
-            // ===== INI KODE YANG BENER BUAT NAMPILIN INFO =====
+            // ===== INI KODE YANG BENER BUAT NAMPILIN INFO (ANTI UNDEFINED) =====
             modalFoto.src = data.foto;
             modalFoto.onerror = function() { this.src = 'placeholder.png'; }; // Fallback jika foto error
             modalNama.textContent = data.nama;
             modalPeran.textContent = data.peran;
             modalSekolah.textContent = "Asal Sekolah: " + data.sekolah;
-            // ===================================================
+            // =================================================================
 
             // --- Logika Baru untuk Link WA ---
 
