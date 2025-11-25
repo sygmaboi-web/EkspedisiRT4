@@ -760,3 +760,95 @@ footer {
     border-top: 5px solid var(--merah-tua);
     font-size: 0.9rem;
 }
+/* ========================================= */
+/* === TAMBAHAN CSS HALAMAN DOKUMENTASI === */
+/* ========================================= */
+
+/* 1. Video Full Frame (Dibatasi max-width agar enak dilihat di PC) */
+.doc-video-container {
+    width: 100%;
+    max-width: 1000px; 
+    margin: 0 auto 2rem auto;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.doc-video-container video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* 2. Galeri 3 Foto */
+.doc-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Kolom */
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto 2rem auto;
+}
+
+.doc-gallery img {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 8px;
+    border: 2px solid var(--biru-tua);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.doc-gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* 3. Tombol Link */
+.doc-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap; 
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.doc-btn {
+    display: inline-block;
+    background-color: var(--biru-tua);
+    color: var(--putih);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 2px solid var(--gold);
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.doc-btn:hover {
+    background-color: var(--merah-tua);
+    transform: translateY(-3px);
+}
+
+/* Tombol Proposal beda warna dikit */
+.doc-btn-proposal {
+    background-color: var(--merah-tua);
+    border-color: var(--putih);
+}
+.doc-btn-proposal:hover {
+    background-color: var(--biru-tua);
+}
+
+/* Responsif HP */
+@media (max-width: 768px) {
+    .doc-gallery {
+        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
+    }
+    .doc-btn {
+        width: 80%;
+    }
+}
